@@ -65,6 +65,6 @@ export async function updateWithRelations() {
         postToUpdate.author = newAuthor;
 
         await postRepository.save(postToUpdate);
-            console.log("🔄 Post updated and author changed")    
+        console.log("🔄 Post updated and author changed")
     }
 }
