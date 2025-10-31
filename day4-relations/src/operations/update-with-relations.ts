@@ -8,11 +8,10 @@ export async function updateWithRelations() {
 
 
     // Method 1: Update profile through user
-
-    // const userWithProfile = await userRepository.findOne({
-    //     where: {email: "alice@example.com"},
-    //     relations: ["profile"]
-    // })
+    const userWithProfile = await userRepository.findOne({
+        where: {email: "alice@example.com"},
+        relations: ["profile"]
+    })
 
     // if(userWithProfile && userWithProfile.profile){
     //      userWithProfile.profile.bio = "Senior Full-stack Developer with 5+ years experience";
