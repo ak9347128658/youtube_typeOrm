@@ -38,3 +38,8 @@ export class Review {
     @ManyToOne(() => Product, product => product.reviews)
     declare product: Product;
 }
+
+// | id | user_id | product_id | rating | comment  |
+// | -- | ------- | ---------- | ------ | -------- |
+// | 1  | 101     | 500        | 5      | "Great!" |
+// | 1  | 101     | 500        | 4     | "Nice!"  |
