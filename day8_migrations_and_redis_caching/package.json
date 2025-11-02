@@ -1,0 +1,30 @@
+{
+  "name": "day4-relations",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/data-source.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "ioredis": "^5.8.2",
+    "pg": "^8.16.3",
+    "redis": "^5.9.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.26"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.5",
+    "@types/redis": "^4.0.10",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
