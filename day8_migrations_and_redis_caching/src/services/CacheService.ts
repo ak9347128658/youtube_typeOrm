@@ -2,7 +2,7 @@ import Redis from 'ioredis';
 
 export class CacheService {
     private redis: Redis;
-    private defaultTTL: number = 3600; // 1 hour in seconds
+    private defaultTTL: number = 60 * 60; // 1 hour in seconds
 
     constructor() {
         this.redis = new Redis({
@@ -10,6 +10,7 @@ export class CacheService {
             port: 6379
         });
     }
+  
 
     async set(key: string, value: any, ttl?: number): Promise<void> {
         const stringValue = JSON.stringify(value);
@@ -26,6 +27,7 @@ export class CacheService {
         return JSON.parse(value) as T;
     }
 
+    //  user, user:1, user:3:2wsdlf  -> user:*
     async delete(key: string): Promise<void> {
         await this.redis.del(key);
     }

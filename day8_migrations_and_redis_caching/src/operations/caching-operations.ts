@@ -1,4 +1,5 @@
 import { AppDataSource } from "../data-source";
+import { User } from "../entities";
 import { Post } from "../entities/Post";
 import { CacheService } from "../services/CacheService";
 
@@ -6,11 +7,19 @@ const cacheService = new CacheService();
 const postRepository = AppDataSource.getRepository(Post);
 
 export class CachingOperations {
+    static async clearData(){
+        await cacheService.clear();
+    }
     // Create a new post with cache invalidation
     static async createPost(title: string, content: string): Promise<Post> {
         const post = new Post();
         post.title = title;
         post.content = content;
+        const author = await AppDataSource.getRepository(User).findOne({ where: {} });
+        if (!author) {
+            throw new Error('No user found to assign as author');
+        }
+        post.author = author;
         
         const savedPost = await postRepository.save(post);
         // Invalidate the posts list cache
@@ -29,7 +38,12 @@ export class CachingOperations {
 
         // If not in cache, get from database
         console.log('Fetching posts from database');
-        const posts = await postRepository.find();
+        const posts = await postRepository.find({
+            take: 10,
+            order: {
+                createdAt: "DESC"
+            }
+        });
         
         // Store in cache for future requests
         await cacheService.set('posts:all', posts);
@@ -65,7 +79,6 @@ export class CachingOperations {
         post.content = content;
         
         const updatedPost = await postRepository.save(post);
-        
         // Invalidate both individual post cache and posts list cache
         const cacheKey = cacheService.generateKey('post', id);
         await Promise.all([
