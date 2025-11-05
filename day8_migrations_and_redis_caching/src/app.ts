@@ -17,7 +17,7 @@ async function main() {
        
       //  const posts2 = await CachingOperations.getAllPosts();
       //  console.log("all posts :",JSON.stringify(posts2,null,2));
-      const post = await CachingOperations.getPostById(2);
+      // const post = await CachingOperations.getPostById(2);
    }catch(error){
       console.error("Error : ",error)
    }finally{
